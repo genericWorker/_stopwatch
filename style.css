@@ -1,44 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Lexend+Deca&family=Noto+Sans+Mono:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+Mono:wght@500&display=swap');
 
-body{
+:root {
+  --bg-color: #0f0e17;
+  --card-bg: #1e1e2e;
+  --accent: #bcb5ff;
+  --accent-hover: #8f86eb;
+  --text: #ddd9fc;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centers the stopwatch vertically */
+}
+
+.wrapper {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(188, 181, 255, 0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+}
+
+h1 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+h2 {
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+#displayTime {
   font-family: 'Noto Sans Mono', monospace;
-  background-color: #292642;
-  color: #ddd9fc;
+  font-size: 4rem;
+  font-weight: 500;
+  background: linear-gradient(to bottom, #ffffff, #bcb5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 2rem 0;
+  display: block;
 }
 
-button{
-  background-color:#bcb5ff;
-  border:none;
-  border-radius:8px;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin:15px;
-  font-family: 'Noto Sans Mono', monospace;
-}
-button:hover{
-  background-color:#8f86eb;
-  color:#ffffff;
-  box-shadow: 2px 4px;
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.wrapper{ 
- position: fixed;
- top: 10%; 
- left: 30%; 
-  margin: auto; 
-  display: flex; 
-  flex-direction:column;
-
-  justify-content:space-between;
-  align-items:center;
-  
-  border: 3px ridge #bcb5ff; 
-  border-radius:1rem; 
-  width: 40%;
-
-
+button {
+  background-color: rgba(188, 181, 255, 0.1);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
 }
 
-.displayTime{
-  margin: 15px;
+button:hover {
+  background-color: var(--accent);
+  color: var(--bg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(188, 181, 255, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Specific color for Reset to distinguish it */
+#button-reset {
+  border-color: #ff8585;
+  color: #ff8585;
+}
+
+#button-reset:hover {
+  background-color: #ff8585;
+  color: white;
 }
