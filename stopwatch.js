@@ -1,57 +1,64 @@
 window.onload = function () {
+  // 1. Existing Time variables + New state tracking
   let minutes = 0;
   let seconds = 0; 
   let tens = 0; 
-  
+  let Interval;
+  let isCountingDown = false; // Prepared for timer mode
+
+  // 2. Updated DOM Selectors
   const appendMinutes = document.getElementById("minutes");
   const appendSeconds = document.getElementById("seconds");
   const appendTens = document.getElementById("tens");
   
-  const buttonStart = document.getElementById('button-start');
-  const buttonStop = document.getElementById('button-stop');
-  const buttonReset = document.getElementById('button-reset');
-  let Interval;
+  // New selectors (Add these to your HTML next)
+  const messageArea = document.getElementById("message");
+  const alarm = document.getElementById("alarm-sound");
 
-  buttonStart.onclick = function() {
+  const btnStart = document.getElementById('button-start');
+  const btnStop = document.getElementById('button-stop');
+  const btnReset = document.getElementById('button-reset');
+  const btnSet = document.getElementById('button-set'); // New button
+
+  // 3. Refactored Button Logic
+  btnStart.onclick = function() {
     clearInterval(Interval);
-    Interval = setInterval(startTimer, 10); // Runs every 10ms
+    // Mode Detection: If values are > 0, we will count down.
+    isCountingDown = (minutes > 0 || seconds > 0 || tens > 0);
+    Interval = setInterval(operateTimer, 10); 
   }
   
-  buttonStop.onclick = function() {
+  btnStop.onclick = function() {
     clearInterval(Interval);
   }
 
-  buttonReset.onclick = function() {
+  btnReset.onclick = function() {
     clearInterval(Interval);
     tens = 0; seconds = 0; minutes = 0;
-    appendTens.innerHTML = "00";
-    appendSeconds.innerHTML = "00";
-    appendMinutes.innerHTML = "00";
+    updateDisplay(); // Using the new helper function
+    if(messageArea) messageArea.innerHTML = ""; // Prepare for messages
   }
 
-  function startTimer () {
+  // 4. The Core Logic (Renamed to operateTimer)
+  function operateTimer () {
     tens++; 
-    
-    if(tens <= 9){
-      appendTens.innerHTML = "0" + tens;
-    }
-    
-    if (tens > 9){
-      appendTens.innerHTML = tens;
-    } 
     
     if (tens > 99) {
       seconds++;
-      appendSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
       tens = 0;
-      appendTens.innerHTML = "00";
     }
     
     if (seconds > 59) {
       minutes++;
-      appendMinutes.innerHTML = minutes < 10 ? "0" + minutes : minutes;
       seconds = 0;
-      appendSeconds.innerHTML = "00";
     }
+    updateDisplay();
+  }
+
+  // 5. NEW HELPER FUNCTION (Crucial for the upgrade)
+  function updateDisplay() {
+    appendTens.innerHTML = tens < 10 ? "0" + tens : tens;
+    appendSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+    appendMinutes.innerHTML = minutes < 10 ? "0" + minutes : minutes;
   }
 }
